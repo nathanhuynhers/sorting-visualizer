@@ -35,19 +35,21 @@ componentDidMount() {
 
         this.setState({
             array: temp,
-            arraySteps: [temp]
+            arraySteps: [temp],
         })
     }
 
     render() {
-        let bars = this.state.array.map((value, index) => (
-			<Bar
-				key={index}
-				index={index}
-				length={value}
-				color={this.state.colorKey[index]}
-			/>
-		));
+        let bars = this.state.array.map((value, index) => {
+            return (
+                <Bar 
+                    key={index} 
+                    index={index}
+                    length={value}
+                    color={this.state.colorKey[index]}
+                />
+            );    
+        });
         return (
             <div className='app'>{bars}</div>
         );
