@@ -46,7 +46,7 @@ componentDidMount() {
                     key={index} 
                     index={index}
                     length={value}
-                    color={this.state.colorKey[index]}
+                    color={0}
                 />
             );    
         });

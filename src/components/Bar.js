@@ -18,7 +18,7 @@ function Bar({index, length, color}) {
     top: Math.floor(length / 2) - 10,
     width: length,
     left: -Math.floor(length / 2) + 10,
-    border: none,
+    border: 'none',
   }
 
   const front_bottom = {
@@ -37,6 +37,18 @@ function Bar({index, length, color}) {
   }
 
   const handleChange = (e) => {
+    let val = e.target.value;
+    if (val === '') {
+      setLen(0)
+    } else {
+      val = parseInt(val)
+      if (val > 200) {
+        setLen(200);
+      } else {
+        setLen(val);
+      }
+    }
+
     setLen(parseInt(e.target.value))
   }
   
@@ -45,14 +57,27 @@ function Bar({index, length, color}) {
   return (
     <>
       <div className="bar" style={barStyle}>
-        <div className="side top">
-
-        </div>
+        <div className="side top"></div>
         <div className="side bottom" style={front_bottom}></div>
-        <div className="side right" style={right_left}></div>
-        <div className="side left" style={right_left}></div>
-        <div className="side front" style={front_bottom}>
-          <input type="number" length={length} style={inputStyle} value={len} onChange={(e) => setLen(e.target)}/>
+        <div className="side right">
+          <div className="color-bar right-color-bar" style={right_left}></div>
+        </div>
+        <div className="side left" style={right_left}>
+          <div className="color-bar left-color-bar" style={right_left}></div>
+        </div>
+        <div className="side front">
+          <div className="color-bar front-color-bar" style={front_bottom}></div>
+          <input 
+            type="number" 
+            length={length} 
+            style={inputStyle} 
+            value={len}
+            className='input' 
+            onChange={handleChange}
+          />
+        </div>
+        <div className="side back">
+          <div className="color-bar back-color-bar" style={front_bottom}></div>
         </div>
       </div>
     </>
