@@ -51,7 +51,13 @@ componentDidMount() {
             );    
         });
         return (
-            <div className='app'>{bars}</div>
+            <div className='app'>
+                <div className="frame">
+                    <div className="barsDiv container card">{bars}</div>
+                </div>
+                <div className="control-panel"></div>
+                <div className="panel"></div>
+            </div>
         );
   }
 }
