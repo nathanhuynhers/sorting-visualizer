@@ -36,6 +36,17 @@ componentDidMount() {
         this.setState({
             array: temp,
             arraySteps: [temp],
+            currentStep: 0,
+        })
+    };
+
+    changeArray = (index, value) => {
+        let arr = this.state.array;
+        arr[index] = value;
+        this.setState({
+            array: arr,
+            arraySteps: [arr],
+            currentStep: 0
         })
     }
 
@@ -47,6 +58,7 @@ componentDidMount() {
                     index={index}
                     length={value}
                     color={0}
+                    changeArray={this.changeArray}
                 />
             );    
         });
