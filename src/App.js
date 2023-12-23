@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import Bar from './components/Bar';
 
+//Icons
+import Play from '@material-ui/icons/PlayCircleOutlineRounded';
+import Forward from '@material-ui/icons/SkipNextRounded';
+import Backward from '@material-ui/icons/SkipPreviousRounded';
+import RotateLeft from '@material-ui/icons/RotateLeft';
+
 //CSS Imports
 import './App.css';
 
@@ -51,23 +57,47 @@ componentDidMount() {
     }
 
     render() {
-        let bars = this.state.array.map((value, index) => {
-            return (
-                <Bar 
-                    key={index} 
-                    index={index}
-                    length={value}
-                    color={0}
-                    changeArray={this.changeArray}
-                />
-            );    
-        });
+        let bars = this.state.array.map((value, index) => (
+			<Bar
+				key={index}
+				index={index}
+				length={value}
+				color={0}
+				changeArray={this.changeArray}
+			/>
+		));
+
+            let playButton;
+
+            if (this.state.arraySteps.length === this.state.currentStep) {
+                playButton = (
+                    <button className="controller">
+                        <RotateLeft />
+                    </button>
+                );
+            } else {
+                playButton = (
+                    <button className="controller">
+                        <Play />
+                    </button>
+                );
+            }
         return (
             <div className='app'>
                 <div className="frame">
                     <div className="barsDiv container card">{bars}</div>
                 </div>
-                <div className="control-panel"></div>
+				<div className='control-pannel'>
+					<div className='control-buttons'>
+						<button className='controller' onClick={this.previousStep}>
+							<Backward />
+						</button>
+						{playButton}
+						<button className='controller' onClick={this.nextStep}>
+							<Forward />
+						</button>
+					</div>
+				</div>
                 <div className="panel"></div>
             </div>
         );
