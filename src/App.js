@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import Bar from './components/Bar';
 
+//Algorithms
+import BubbleSort from './algorithms/bubble_sort';
+
 //Icons
 import Play from '@material-ui/icons/PlayCircleOutlineRounded';
 import Forward from '@material-ui/icons/SkipNextRounded';
@@ -20,18 +23,45 @@ class App extends Component {
         currentStep: 0,
         count: 10,
         delay: 100,
-        algorithm: '',
+        algorithm: 'Bubble Sort',
         timeouts: [],
     };
 
-componentDidMount() {
-    this.generateRandomArray();
-}
+    ALGORITHMS = {
+        'Bubble Sort': BubbleSort,
+    }
+
+    componentDidMount() {
+        this.generateRandomArray();
+    }
+
+    generateSteps = () => {
+        let array = this.state.array.slice();
+        let steps = this.state.arraySteps.slice();
+        let colorSteps = this.state.colorSteps.slice();
+        
+        this.ALGORITHMS[this.state.algorithm](array, 0, steps, colorSteps)
+
+        this.setState({
+            arraySteps: [steps],
+            colorSteps: colorSteps,
+        })
+    }
+
+    clearColorKey = () => {
+        let blankKey = new Array(this.state.count).fill(0);
+
+        this.setState({
+            colorKey: blankKey,
+            colorSteps: [blankKey]
+        })
+    }
 
     generateRandomNumber = (min, max) => {
         return Math.floor(Math.random() * (max - min) + min)
     }
     generateRandomArray = () => {
+        this.clearColorKey();
         const count = this.state.count;
         const temp = [];
 
@@ -43,7 +73,9 @@ componentDidMount() {
             array: temp,
             arraySteps: [temp],
             currentStep: 0,
-        })
+        }, () => {
+            this.generateSteps();
+        });
     };
 
     changeArray = (index, value) => {
@@ -53,7 +85,9 @@ componentDidMount() {
             array: arr,
             arraySteps: [arr],
             currentStep: 0
-        })
+        }, () => {
+            this.generateSteps();
+        });
     }
 
     render() {
