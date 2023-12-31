@@ -6,8 +6,8 @@ import BubbleSort from './algorithms/bubble_sort';
 
 //Icons
 import Play from '@material-ui/icons/PlayCircleOutlineRounded';
-// import Forward from '@material-ui/icons/SkipNextRounded';
-// import Backward from '@material-ui/icons/SkipPreviousRounded';
+import Forward from '@material-ui/icons/SkipNextRounded';
+import Backward from '@material-ui/icons/SkipPreviousRounded';
 import RotateLeft from '@material-ui/icons/RotateLeft';
 
 //CSS Imports
@@ -98,6 +98,28 @@ class App extends Component {
         });
     };
 
+    previousStep = () => {
+		let currentStep = this.state.currentStep;
+		if (currentStep === 0) return;
+		currentStep -= 1;
+		this.setState({
+			currentStep: currentStep,
+			array: this.state.arraySteps[currentStep],
+			colorKey: this.state.colorSteps[currentStep],
+		});
+	};
+
+	nextStep = () => {
+		let currentStep = this.state.currentStep;
+		if (currentStep >= this.state.arraySteps.length - 1) return;
+		currentStep += 1;
+		this.setState({
+			currentStep: currentStep,
+			array: this.state.arraySteps[currentStep],
+			colorKey: this.state.colorSteps[currentStep],
+		});
+	};
+
     start = () => {
         let steps = this.state.arraySteps;
         let colorSteps = this.state.colorSteps;
@@ -156,8 +178,14 @@ class App extends Component {
                     <div className="barsDiv container card">{bars}</div>
                 </div>
 				<div className='control-pannel'>
-					<div className='control-buttons'>
+                <div className='control-buttons'>
+						<button className='controller' onClick={this.previousStep}>
+							<Backward />
+						</button>
 						{playButton}
+						<button className='controller' onClick={this.nextStep}>
+							<Forward />
+						</button>
 					</div>
 				</div>
                 <div className="panel"></div>
